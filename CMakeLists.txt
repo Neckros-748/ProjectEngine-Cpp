@@ -8,7 +8,7 @@ project(ProjectEngine-Cpp)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Указание исходных файлов и ресурсов.
+# Указание исходных файлов.
 file(GLOB_RECURSE SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.inl
@@ -20,30 +20,18 @@ file(GLOB_RECURSE SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
 )
-file(GLOB_RECURSE RESOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.*
-	
-    ${CMAKE_CURRENT_SOURCE_DIR}/res/*.*
-)
 
-# Группировка исходных файлов и ресурсов в структурированные каталоги для IDE.
+# Группировка исходных файлов в структурированные каталоги для IDE.
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/src" PREFIX "Source" FILES ${SOURCES})
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/res" PREFIX "Resource" FILES ${RESOURCES})
 
 # Создание исполняемого файла проекта.
-add_executable(${PROJECT_NAME} ${SOURCES} ${RESOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Установка проекта как основного для Visual Studio.
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 
 # Установка директории вывода исполняемых файлов.
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)
-
-# Копирование ресурсов после сборки.
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/res $<TARGET_FILE_DIR:${PROJECT_NAME}>/res
-)
 
 # Установка параметров для библиотек.
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
