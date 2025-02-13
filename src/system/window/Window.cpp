@@ -90,14 +90,9 @@ void Window::clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Window::setShouldClose(bool flag)
+GLFWwindow* Window::getWindow()
 {
-    glfwSetWindowShouldClose(Window::window, flag);
-}
-
-bool Window::isShouldClose()
-{
-    return Window::window ? glfwWindowShouldClose(Window::window) : true;
+    return window;
 }
 
 int Window::getWidth()
@@ -108,4 +103,14 @@ int Window::getWidth()
 int Window::getHeight()
 {
     return Window::height;
+}
+
+void Window::setShouldClose(bool flag)
+{
+    glfwSetWindowShouldClose(Window::window, flag);
+}
+
+bool Window::isShouldClose()
+{
+    return Window::window ? glfwWindowShouldClose(Window::window) : true;
 }

@@ -30,10 +30,23 @@ int main(int argc, char** argv)
     while (!Window::isShouldClose()) {
         Window::clear();
 
+        if (Event::Keyboard::isPress(GLFW_KEY_ESCAPE)) {
+            Window::setShouldClose(true);
+        }
+        if (Event::Keyboard::isPress(GLFW_KEY_TAB)) {
+            Event::Mouse::isLocked() ? Event::Mouse::setLock(false) : Event::Mouse::setLock(true);
+        }
+
+        //glm::vec2 pos = Event::Mouse::getPosition();
+        //std::cout << pos.x << ", " << pos.y << std::endl;
+
         Window::swapBuffer();
-        glfwPollEvents();
+        Event::poll();
     }
 
     __terminate__();
     return 0;
 }
+
+
+

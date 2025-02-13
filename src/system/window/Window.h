@@ -20,11 +20,12 @@ public:
     static void swapBuffer();
     static void clear();
 
+    static GLFWwindow* getWindow();
+    static int         getWidth();
+    static int         getHeight();
+
     static void setShouldClose(bool flag);
     static bool isShouldClose();
-
-    static int getWidth();
-    static int getHeight();
 
 private:
     Window() = delete;
